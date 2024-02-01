@@ -33,25 +33,32 @@ namespace NewDemo.Services.Service
         }
         public async Task<ServiceResponse> Create(StudentModel student)
         {
-
-
             // Send an HTTP POST request to the specified API endpoint with the provided StudentModel as JSON.
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(_createUrl, student);
 
             // Read the response content as a string.
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            if (!response.IsSuccessStatusCode)
+            // Check if the response is successful (status code 2xx).
+            if (response.IsSuccessStatusCode)
+            {
+                // Deserialize the JSON response into a ServiceResponse object.
+                ServiceResponse serviceResponse = JsonConvert.DeserializeObject<ServiceResponse>(responseBody);
+
+                // Consider the operation successful, even if GenderName or StateName is not present in the response.
+                serviceResponse.Success = true;
+
+                return serviceResponse;
+            }
+            else
             {
                 // Log the response content for debugging
                 Console.WriteLine($"Response Content: {responseBody}");
+
+                // Deserialize the JSON response into a ServiceResponse object for error cases.
+                ServiceResponse errorResponse = JsonConvert.DeserializeObject<ServiceResponse>(responseBody);
+                return errorResponse;
             }
-
-            // Ensure that the HTTP request was successful (status code 2xx).
-            response.EnsureSuccessStatusCode();
-
-            // Deserialize the JSON response into a ServiceResponse object.
-            return JsonConvert.DeserializeObject<ServiceResponse>(responseBody);
         }
 
 

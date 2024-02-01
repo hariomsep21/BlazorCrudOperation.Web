@@ -71,6 +71,7 @@ namespace NewDemo.ViewModel
 
                 if (res.Success)
                 {
+                    NewStudent = new StudentModel();
                     _navigationManager.NavigateTo("/");
                 }
                 else
