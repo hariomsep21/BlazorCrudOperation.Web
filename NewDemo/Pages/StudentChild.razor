@@ -1,0 +1,57 @@
+﻿@using NewDemo.Models.Model
+@using NewDemo.Services.Interface
+@inject NewDemo.ViewModel.StudentListViewModel listVM
+
+@if (listVM.EmpObj is null)
+{
+    <p><em>Loading List...</em></p>
+}
+else
+{
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">CheckBox</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Phone</th>
+                    @if (ShowAction)
+                    {
+                        <th scope="col">Action</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var student in listVM.EmpObj)
+                {
+                    <tr>
+                        <td class="checkbox-cell"style="width:30px">
+                            <input type="checkbox" class="form-check-input" @onchange="CheckBoxChanged" />
+                        </td>
+                        <td>@student.FullName</td>
+                        <td>@student.UserName</td>
+                        <td>@student.Phone</td>
+                     
+                        @if (ShowAction)
+                        {
+                            <td class="action-buttons">
+                                <!-- Use icons for the delete, edit, and view details actions -->
+                                <a href="/delete/@student.Id" class="fas fa-trash-alt btn-outline-danger" title="Delete"></a>
+                                <a href='/edit/@student.Id' class="fas fa-edit btn-outline-primary" title="Edit"></a>
+                                <a href='/viewdetails/@student.Id' class="fas fa-eye btn-outline-success" title="View Details"></a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+@code {
+
+}

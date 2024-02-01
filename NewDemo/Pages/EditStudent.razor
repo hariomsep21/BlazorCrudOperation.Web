@@ -1,0 +1,79 @@
+﻿
+@page "/edit/{studentId:int}"
+@using NewDemo.Models.Model
+@using NewDemo.Services.Interface
+@inherits Microsoft.AspNetCore.Components.ComponentBase
+
+<!-- Rest of the component code -->
+@inject NewDemo.ViewModel.EditStudentViewModel StudentVM
+@inject IStudentInterface _studentService
+
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+<h3> @StudentVM.Title Student </h3>
+<hr />
+
+<EditForm OnValidSubmit="StudentVM.UpdateStudent" Model="@StudentVM.NewStudent" FormName="StudentForm">
+    <DataAnnotationsValidator />
+
+    <div class="form-group">
+        <label for="FullName" class="control-label">Full Name</label>
+        <InputText id="FullName" class="form-control" @bind-Value="StudentVM.NewStudent.FullName" />
+        <ValidationMessage For="@(() => StudentVM.NewStudent.FullName)" />
+    </div>
+    <div class="form-group">
+        <label for="GenderId" class="control-label">Gender</label>
+        <InputSelect id="GenderId" class="form-control" @bind-Value="@StudentVM.ExistingGenderId" @onchange="@(e => StudentVM.ExistingGenderId = e.Value.ToString())">
+            <option value="">Select Gender</option>
+            @foreach (var gender in StudentVM.Genders)
+            {
+                <option value="@gender.GenderID">@gender.GenderName</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => StudentVM.NewStudent.GenderID)" />
+    </div>
+
+
+    <div class="form-group">
+        <label for="stateId" class="control-label">State</label>
+        <InputSelect id="stateId" class="form-control" @bind-Value="@StudentVM.ExistingStateId" @onchange="@(e => StudentVM.ExistingStateId = e.Value.ToString())">
+            <option value="">Select State</option>
+            @foreach (var state in StudentVM.States)
+            {
+                <option value="@state.StateID">@state.StateName</option>
+            }
+        </InputSelect>
+        <ValidationMessage For="@(() => StudentVM.NewStudent.StateID)" />
+    </div>
+
+
+    <div class="form-group">
+        <label for="UserName" class="control-label">User Name</label>
+        <InputText id="UserName" class="form-control" @bind-Value="StudentVM.NewStudent.UserName" />
+        <ValidationMessage For="@(() => StudentVM.NewStudent.UserName)" />
+    </div>
+
+    <div class="form-group">
+        <label for="UserEmail" class="control-label">User Email</label>
+        <InputText id="UserEmail" class="form-control" @bind-Value="StudentVM.NewStudent.UserEmail" />
+        <ValidationMessage For="@(() => StudentVM.NewStudent.UserEmail)" />
+    </div>
+
+    <div class="form-group">
+        <label for="Phone" class="control-label">Phone</label>
+        <InputText id="Phone" class="form-control" @bind-Value="StudentVM.NewStudent.Phone" />
+        <ValidationMessage For="@(() => StudentVM.NewStudent.Phone)" />
+    </div>
+
+
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" @onclick="StudentVM.Cancel">Cancel</button>
+    </div>
+</EditForm>
+
+
+
+
+

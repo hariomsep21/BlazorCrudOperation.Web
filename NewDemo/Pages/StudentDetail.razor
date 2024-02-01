@@ -1,0 +1,50 @@
+﻿@page "/viewdetails/{StudentId:int}"
+@using NewDemo.Models.Model
+@using NewDemo.Services.Interface
+@inject NewDemo.ViewModel.StudentDetailViewModel StudentVMDetail
+@inject Microsoft.AspNetCore.Components.NavigationManager NavigationManager
+
+<h2 class="text-center mb-4">Student Detail</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th scope="row">Student Id</th>
+                        <td>@StudentVMDetail.student.Id</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Student Name</th>
+                        <td>@StudentVMDetail.student.FullName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone No.</th>
+                        <td>@StudentVMDetail.student.UserName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Gender</th>
+                        <td>@StudentVMDetail.student.GenderName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">State</th>
+                        <td>@StudentVMDetail.student.StateName</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Student Email</th>
+                        <td>@StudentVMDetail.student.UserEmail</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone No.</th>
+                        <td>@StudentVMDetail.student.Phone</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-success" @onclick="(() =>StudentVMDetail.OK())">OK</button>
+</div>

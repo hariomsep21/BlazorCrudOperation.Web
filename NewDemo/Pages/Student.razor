@@ -1,0 +1,50 @@
+﻿@page "/"
+@using NewDemo.Models.Model
+@using NewDemo.Services.Interface
+@inject NewDemo.ViewModel.StudentParentViewModel parentVM
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <ToolTip text="List from Child Component">
+                <h1 class="display-4">Student DashBoard</h1>
+            </ToolTip>
+            <h3 class="mb-4">Selected Student Count: @parentVM.SelectedStudentCount</h3>
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="showFooter" @bind="parentVM.ShowAction" />
+                <label class="form-check-label" for="showFooter">Show Action Buttons</label>
+            </div>
+
+            <StudentChild ShowAction="parentVM.ShowAction" OnStudentSelection="parentVM.StudentSelectionChanged"></StudentChild>
+
+            <div class="text-right mt-4">
+                <NavLink class="btn btn-success" href="addstudentrecord">
+                    <span class="oi oi-plus" aria-hidden="true"></span> Add New Student
+                </NavLink>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+    .container {
+        background-color: #f8f9fa; 
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    }
+
+    .display-4 {
+        color: #007bff; 
+    }
+
+    .btn-success {
+        background-color: #28a745; 
+        border-color: #28a745; 
+    }
+</style>
+
+@code {
+
+}
